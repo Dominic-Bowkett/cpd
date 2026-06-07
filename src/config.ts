@@ -4,19 +4,17 @@
  */
 
 // Production host (used for canonicals, sitemap and absolute-URL schema).
-// TODO: Dom confirm final domain, then update astro.config.mjs, robots.txt,
-//       _redirects and scripts/indexnow.mjs to match.
 export const SITE = {
   name: "Surveyor CPD Hub",
   // Short tagline used in header/footer and default meta.
   tagline: "Train, qualify & stay current in property surveying, energy assessment & retrofit",
-  url: "https://www.surveyorcpdhub.co.uk",
+  url: "https://www.surveyorcpdhub.com",
   // Default social/OG image — 1200x630. Source SVG is public/images/og-default.svg.
   // TODO: export a PNG version before launch (some networks don't render SVG OG).
   defaultOgImage: "/images/og-default.svg",
   locale: "en_GB",
   // Where the contact / signup forms address their email (mailto: approach for now).
-  contactEmail: "hello@surveyorcpdhub.co.uk",
+  contactEmail: "hello@surveyorcpdhub.com",
   // Google Analytics 4 measurement ID (empty string disables the tag).
   // TODO: Dom add GA4 ID.
   ga4Id: "",

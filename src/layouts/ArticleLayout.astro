@@ -58,7 +58,9 @@ const {
   relatedLinks = [],
 } = Astro.props;
 
-const path = Astro.url.pathname;
+// Strip the ".html" that build.format: "file" puts on Astro.url.pathname, so the
+// schema URL matches the clean canonical/sitemap URL (e.g. "/cpd/free-resources").
+const path = Astro.url.pathname.replace(/\.html$/, "");
 
 // Human-readable, machine-readable dates.
 const fmt = (d: Date) =>

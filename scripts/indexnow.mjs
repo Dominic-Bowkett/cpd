@@ -13,7 +13,7 @@
  */
 import { readFile } from "node:fs/promises";
 
-const HOST = "www.surveyorcpdhub.co.uk";
+const HOST = "www.surveyorcpdhub.com";
 const KEY = ""; // must match public/<key>.txt — leave empty to skip.
 const SITEMAP = "dist/sitemap-0.xml";
 

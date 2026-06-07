@@ -9,13 +9,13 @@
  *   RESEND_API_KEY   — your Resend API key (starts "re_...")
  *
  * Optional Pages environment variables (plain text is fine):
- *   LEAD_TO    — where signups/enquiries are delivered. Default: hello@surveyorcpdhub.co.uk
- *   LEAD_FROM  — verified Resend sender. Default: "Surveyor CPD Hub <noreply@surveyorcpdhub.co.uk>"
+ *   LEAD_TO    — where signups/enquiries are delivered. Default: hello@surveyorcpdhub.com
+ *   LEAD_FROM  — verified Resend sender. Default: "Surveyor CPD Hub <noreply@surveyorcpdhub.com>"
  *                (the domain must be verified in Resend)
  */
 
-const DEFAULT_TO = "hello@surveyorcpdhub.co.uk";
-const DEFAULT_FROM = "Surveyor CPD Hub <noreply@surveyorcpdhub.co.uk>";
+const DEFAULT_TO = "hello@surveyorcpdhub.com";
+const DEFAULT_FROM = "Surveyor CPD Hub <noreply@surveyorcpdhub.com>";
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {

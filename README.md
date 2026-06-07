@@ -66,10 +66,11 @@ scripts/          indexnow.mjs
 
 Search the codebase for `TODO` to find every item. Key ones:
 
-- **Domain.** Replace `surveyorcpdhub.co.uk` in `astro.config.mjs`,
+- **Domain.** Set to `surveyorcpdhub.com` across `astro.config.mjs`,
   `src/config.ts`, `public/robots.txt`, `public/_redirects`,
-  `scripts/indexnow.mjs` and `functions/api/lead.js` once the real domain is set.
-- **Author photo.** Add `public/images/author-dom.jpg`.
+  `scripts/indexnow.mjs` and `functions/api/lead.js`. Attach both
+  `surveyorcpdhub.com` and `www.surveyorcpdhub.com` as custom domains on the
+  Cloudflare Pages project (the apex redirects to www).
 - **OG image.** Export a PNG version of `public/images/og-default.svg`.
 - **Analytics.** Set `ga4Id` / `ahrefsKey` in `src/config.ts` (the consent banner
   only appears when GA4 is set).

@@ -1,6 +1,6 @@
 # Cloudflare Pages redirects.
 # Canonical host is www. Redirect the bare/apex domain to www (301).
-# Requires BOTH surveyorcpdhub.co.uk and www.surveyorcpdhub.co.uk to be attached
+# Requires BOTH surveyorcpdhub.com and www.surveyorcpdhub.com to be attached
 # as custom domains on the Pages project.
 # TODO: update both hosts if the final domain differs.
-https://surveyorcpdhub.co.uk/* https://www.surveyorcpdhub.co.uk/:splat 301
+https://surveyorcpdhub.com/* https://www.surveyorcpdhub.com/:splat 301
