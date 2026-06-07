@@ -1,2 +1,0 @@
-# Author photo placeholder
-TODO: replace public/images/author-dom.jpg with a real photo of Dominic Bowkett before launch.

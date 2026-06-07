@@ -39,7 +39,6 @@ export const AUTHOR = {
   jobTitle: "Domestic Energy Assessor, Building Surveyor & Trainer",
   bioShort:
     "Dominic is a practising Domestic Energy Assessor and building surveyor who also trains new students entering the profession — so the guidance here comes from someone doing the job and teaching it.",
-  // TODO: replace with real author photo before launch.
   photo: "/images/author-dom.jpg",
   aboutUrl: "/about",
   // Author's professional site — linked from the author box / about page and
