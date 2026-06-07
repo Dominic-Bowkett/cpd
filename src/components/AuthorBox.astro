@@ -23,6 +23,9 @@ import { AUTHOR } from "../config";
       <span class="author-creds">{AUTHOR.credentials.join(" · ")}</span>
     </p>
     <p class="author-role">{AUTHOR.jobTitle}</p>
+    {AUTHOR.registrations && AUTHOR.registrations.length > 0 && (
+      <p class="author-regs">{AUTHOR.registrations.join(" · ")}</p>
+    )}
     <p class="author-bio">{AUTHOR.bioShort}</p>
     <p class="author-link">
       <a href={AUTHOR.aboutUrl}>More about {AUTHOR.name.split(" ")[0]} →</a>
@@ -62,6 +65,10 @@ import { AUTHOR } from "../config";
     font-size: 0.9375rem;
     color: var(--color-primary);
     font-weight: 600;
+  }
+  .author-regs {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
   }
   .author-bio {
     font-size: 0.9375rem;

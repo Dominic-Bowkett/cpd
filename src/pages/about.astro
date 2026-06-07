@@ -13,7 +13,7 @@ import { graph, personSchema, organizationSchema, breadcrumbSchema } from "../li
 import type { Crumb } from "../lib/schema";
 
 const title = `About ${AUTHOR.name} — practitioner & trainer`;
-const description = `About ${AUTHOR.name}, a practising Domestic Energy Assessor and building surveyor who also trains new students, and the thinking behind this surveyor training and CPD hub.`;
+const description = `About ${AUTHOR.name}, a practising Domestic Energy Assessor, Retrofit Assessor and building surveyor who also trains and assesses new DEAs and Retrofit Assessors, and the thinking behind this surveyor training and CPD hub.`;
 
 const crumbs: Crumb[] = [
   { label: "Home", href: "/" },
@@ -28,8 +28,15 @@ const credentialNotes = [
   { code: "CertDEA", note: "Certified Domestic Energy Assessor — qualified to produce Energy Performance Certificates (EPCs)." },
   { code: "BA Hons", note: "Bachelor of Arts with Honours." },
   { code: "GDL", note: "Graduate Diploma in Law — conversion qualification in English law." },
-  { code: "MSc", note: "Master of Science. <!-- TODO: Dom to add subject/field -->" },
-  { code: "MRPSA (Trustmark)", note: "Member of the Residential Property Surveyors Association, TrustMark-registered." },
+  { code: "MSc", note: "Master of Science in Building Surveying." },
+  { code: "MRPSA", note: "Member of the Residential Property Surveyors Association (RPSA)." },
+];
+
+// Professional registrations and roles (distinct from the academic credentials).
+const registrationNotes = [
+  { code: "TrustMark registered", note: "Registered with TrustMark, the Government-endorsed quality scheme for tradespeople and property professionals." },
+  { code: "Registered Retrofit Assessor", note: "Registered as a Retrofit Assessor with ECMK, Elmhurst and Quidos." },
+  { code: "Trainer & Assessor (Energy Trust)", note: "Trains and assesses new Domestic Energy Assessors and Retrofit Assessors with Energy Trust." },
 ];
 
 const lastReviewed = new Date("2026-06-07");
@@ -59,18 +66,21 @@ const fmt = (d: Date) =>
         />
         <p class="about-lead">
           <strong>{AUTHOR.name}</strong>, {AUTHOR.credentials.join(" · ")} — a
-          practising Domestic Energy Assessor and building surveyor who also
-          <strong>trains the next generation</strong> of property professionals.
+          practising Domestic Energy Assessor, Retrofit Assessor and building
+          surveyor who also <strong>trains and assesses</strong> new DEAs and
+          Retrofit Assessors.
         </p>
       </div>
 
       <h2>An expert who trains</h2>
       <p>
-        I work in residential property condition and energy assessment — and I
-        teach it. That dual standing matters: a lot of "how to qualify" advice
-        online is written by people who've never done the job, or who only do the
-        job and have never had to explain it to someone starting out. I do both,
-        every week. You can also find me at
+        I work in residential property condition, energy assessment and retrofit
+        — and I teach it. As well as assessing and surveying property myself, I'm
+        a <strong>Trainer and Assessor of Domestic Energy Assessors and Retrofit
+        Assessors with Energy Trust</strong>. That dual standing matters: a lot of
+        "how to qualify" advice online is written by people who've never done the
+        job, or who only do the job and have never had to explain it to someone
+        starting out. I do both, every week. You can also find me at
         <a href={AUTHOR.website} target="_blank" rel="noopener">{AUTHOR.websiteLabel}</a>.
       </p>
       <p>
@@ -92,6 +102,22 @@ const fmt = (d: Date) =>
       <dl class="creds">
         {
           credentialNotes.map((c) => (
+            <div class="cred">
+              <dt>{c.code}</dt>
+              <dd set:html={c.note} />
+            </div>
+          ))
+        }
+      </dl>
+
+      <h2>Professional registrations &amp; roles</h2>
+      <p>
+        Alongside my qualifications, I'm registered with the schemes I work
+        through and I train and assess others entering the field:
+      </p>
+      <dl class="creds">
+        {
+          registrationNotes.map((c) => (
             <div class="cred">
               <dt>{c.code}</dt>
               <dd set:html={c.note} />

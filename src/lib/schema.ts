@@ -14,8 +14,10 @@ export function absUrl(path: string): string {
   return `${SITE.url.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
 }
 
-/** Person schema for Dominic, with credentials as hasCredential entries. */
+/** Person schema for Dominic, with credentials + registrations as hasCredential. */
 export function personSchema(): JsonLd {
+  // Emit qualifications (letters) and professional registrations/roles together.
+  const allCredentials = [...AUTHOR.credentials, ...(AUTHOR.registrations ?? [])];
   return {
     "@type": "Person",
     "@id": absUrl(`${AUTHOR.aboutUrl}#person`),
@@ -25,7 +27,7 @@ export function personSchema(): JsonLd {
     url: absUrl(AUTHOR.aboutUrl),
     image: absUrl(AUTHOR.photo),
     ...(AUTHOR.website ? { sameAs: [AUTHOR.website] } : {}),
-    hasCredential: AUTHOR.credentials.map((c) => ({
+    hasCredential: allCredentials.map((c) => ({
       "@type": "EducationalOccupationalCredential",
       name: c,
     })),

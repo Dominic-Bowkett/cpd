@@ -32,11 +32,19 @@ export const SITE = {
  */
 export const AUTHOR = {
   name: "Dominic Bowkett",
-  // Post-nominals shown after the name.
-  credentials: ["CertDEA", "BA Hons", "GDL", "MSc", "MRPSA Trustmark"],
-  jobTitle: "Domestic Energy Assessor, Building Surveyor & Trainer",
+  // Post-nominal letters shown after the name (the byline). Scheme registrations
+  // and roles that aren't letters live in `registrations` below.
+  credentials: ["CertDEA", "BA Hons", "GDL", "MSc", "MRPSA"],
+  // Professional registrations and roles — shown in the author box and about
+  // page, and emitted (with credentials) as Person hasCredential schema.
+  registrations: [
+    "TrustMark registered",
+    "Registered Retrofit Assessor (ECMK · Elmhurst · Quidos)",
+    "Trainer & Assessor of Domestic Energy Assessors and Retrofit Assessors (Energy Trust)",
+  ],
+  jobTitle: "Domestic Energy Assessor, Retrofit Assessor, Building Surveyor & Trainer",
   bioShort:
-    "Dominic is a practising Domestic Energy Assessor and building surveyor who also trains new students entering the profession — so the guidance here comes from someone doing the job and teaching it.",
+    "Dominic is a practising Domestic Energy Assessor, Retrofit Assessor and building surveyor who also trains and assesses new DEAs and Retrofit Assessors (with Energy Trust) — so the guidance here comes from someone doing the job and teaching it.",
   photo: "/images/author-dom.jpg",
   aboutUrl: "/about",
   // Author's professional site — linked from the author box / about page and
