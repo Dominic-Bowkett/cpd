@@ -32,19 +32,22 @@ export const SITE = {
  */
 export const AUTHOR = {
   name: "Dominic Bowkett",
-  // Post-nominal letters shown after the name (the byline). Scheme registrations
-  // and roles that aren't letters live in `registrations` below.
-  credentials: ["CertDEA", "BA Hons", "GDL", "MSc", "MRPSA"],
-  // Professional registrations and roles — shown in the author box and about
-  // page, and emitted (with credentials) as Person hasCredential schema.
+  // Post-nominal letters shown after the name (the byline). MRPSA and ACABE lead
+  // as the most prominent credentials. Scheme registrations and roles that aren't
+  // post-nominal letters live in `registrations` below.
+  credentials: ["MRPSA", "ACABE", "CertDEA", "BA Hons", "GDL", "MSc"],
+  // Professional registrations, memberships and roles — shown in the author box
+  // and about page, and emitted (with credentials) as Person hasCredential schema.
   registrations: [
+    "Associate of the Energy Institute",
+    "DEA & Retrofit Assessor accredited (Elmhurst · ECMK · Quidos)",
     "TrustMark registered",
-    "Registered Retrofit Assessor (ECMK · Elmhurst · Quidos)",
+    "Member of The Property Ombudsman scheme (RPSA work)",
     "Trainer & Assessor of Domestic Energy Assessors and Retrofit Assessors (Energy Trust)",
   ],
   jobTitle: "Domestic Energy Assessor, Retrofit Assessor, Building Surveyor & Trainer",
   bioShort:
-    "Dominic is a practising Domestic Energy Assessor, Retrofit Assessor and building surveyor who also trains and assesses new DEAs and Retrofit Assessors (with Energy Trust) — so the guidance here comes from someone doing the job and teaching it.",
+    "Dominic is a practising Domestic Energy Assessor, Retrofit Assessor and building surveyor (MRPSA, ACABE) who also trains and assesses new DEAs and Retrofit Assessors (with Energy Trust) — so the guidance here comes from someone doing the job and teaching it.",
   photo: "/images/author-dom.jpg",
   aboutUrl: "/about",
   // Author's professional site — linked from the author box / about page and

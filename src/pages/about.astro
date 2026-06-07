@@ -22,20 +22,27 @@ const crumbs: Crumb[] = [
 
 const schema = graph(organizationSchema(), personSchema(), breadcrumbSchema(crumbs));
 
-// Credential glossary — explains each post-nominal in plain English.
+// Credential glossary — explains each in plain English, grouped so the most
+// prominent professional memberships (MRPSA, ACABE) lead.
 // TODO: Dom to confirm the exact awarding bodies / wording for each.
-const credentialNotes = [
+const membershipNotes = [
+  { code: "MRPSA", note: "Member of the Residential Property Surveyors Association (RPSA)." },
+  { code: "ACABE", note: "Associate of the Chartered Association of Building Engineers (CABE)." },
+  { code: "Associate, Energy Institute", note: "Associate of the Energy Institute (EI)." },
+];
+
+const qualificationNotes = [
   { code: "CertDEA", note: "Certified Domestic Energy Assessor — qualified to produce Energy Performance Certificates (EPCs)." },
   { code: "BA Hons", note: "Bachelor of Arts with Honours." },
   { code: "GDL", note: "Graduate Diploma in Law — conversion qualification in English law." },
   { code: "MSc", note: "Master of Science in Building Surveying." },
-  { code: "MRPSA", note: "Member of the Residential Property Surveyors Association (RPSA)." },
 ];
 
-// Professional registrations and roles (distinct from the academic credentials).
+// Professional registrations and roles (distinct from memberships and qualifications).
 const registrationNotes = [
+  { code: "DEA & Retrofit Assessor accredited", note: "Accredited as a Domestic Energy Assessor and Retrofit Assessor with Elmhurst, ECMK and Quidos." },
   { code: "TrustMark registered", note: "Registered with TrustMark, the Government-endorsed quality scheme for tradespeople and property professionals." },
-  { code: "Registered Retrofit Assessor", note: "Registered as a Retrofit Assessor with ECMK, Elmhurst and Quidos." },
+  { code: "The Property Ombudsman", note: "Member of The Property Ombudsman (TPO) scheme for RPSA work." },
   { code: "Trainer & Assessor (Energy Trust)", note: "Trains and assesses new Domestic Energy Assessors and Retrofit Assessors with Energy Trust." },
 ];
 
@@ -93,15 +100,28 @@ const fmt = (d: Date) =>
         place — honest, practical and kept current.
       </p>
 
-      <h2>My qualifications</h2>
+      <h2>Professional memberships</h2>
       <p>
         I write under my real name and credentials because, when you're deciding
         how to spend money and years on a career, you should be able to see and
-        check who's advising you:
+        check who's advising you. My most relevant memberships are with the RPSA
+        and CABE:
       </p>
       <dl class="creds">
         {
-          credentialNotes.map((c) => (
+          membershipNotes.map((c) => (
+            <div class="cred">
+              <dt>{c.code}</dt>
+              <dd set:html={c.note} />
+            </div>
+          ))
+        }
+      </dl>
+
+      <h2>My qualifications</h2>
+      <dl class="creds">
+        {
+          qualificationNotes.map((c) => (
             <div class="cred">
               <dt>{c.code}</dt>
               <dd set:html={c.note} />
@@ -112,8 +132,9 @@ const fmt = (d: Date) =>
 
       <h2>Professional registrations &amp; roles</h2>
       <p>
-        Alongside my qualifications, I'm registered with the schemes I work
-        through and I train and assess others entering the field:
+        Alongside my memberships and qualifications, I'm accredited and registered
+        with the schemes I work through, and I train and assess others entering the
+        field:
       </p>
       <dl class="creds">
         {
