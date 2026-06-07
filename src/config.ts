@@ -57,16 +57,28 @@ export const NAV = [
 
 /** Footer link groups. */
 export const FOOTER_LINKS = {
-  "Train & qualify": [
-    { label: "Become a surveyor", href: "/become-a-surveyor" },
+  "Surveying careers": [
+    { label: "How to become a surveyor", href: "/become-a-surveyor" },
+    { label: "Building surveyor", href: "/how-to-become-a-building-surveyor" },
+    { label: "Quantity surveyor", href: "/how-to-become-a-quantity-surveyor" },
+    { label: "Valuation surveyor", href: "/how-to-become-a-valuation-surveyor" },
+    { label: "Chartered surveyor (MRICS)", href: "/how-to-become-a-chartered-surveyor" },
+    { label: "RICS APC", href: "/rics-apc" },
+    { label: "Surveying apprenticeships", href: "/surveying-apprenticeships" },
+  ],
+  "Energy, retrofit & condition": [
     { label: "EPC / DEA assessor training", href: "/epc-assessor-training" },
     { label: "Retrofit assessor training", href: "/retrofit-assessor-training" },
+    { label: "Retrofit coordinator training", href: "/retrofit-coordinator-training" },
+    { label: "Damp surveyor training", href: "/damp-surveyor-training" },
     { label: "HHSRS training", href: "/hhsrs-training" },
     { label: "Party wall surveying", href: "/party-wall-surveyor" },
   ],
   "CPD resources": [
     { label: "What is CPD?", href: "/cpd" },
     { label: "Free CPD directory", href: "/cpd/free-resources" },
+    { label: "RICS CPD requirements", href: "/cpd/rics-cpd-requirements" },
+    { label: "How to record CPD", href: "/cpd/how-to-log-cpd" },
     { label: "Dom's CPD courses", href: "/courses" },
   ],
   Site: [

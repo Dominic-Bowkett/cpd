@@ -31,31 +31,39 @@ Knowing which kind of surveyor you want to be shapes everything that follows.
 The common types:
 
 - **Building surveyor** — building condition, defects, repairs and compliance.
-  Great if you like buildings and problem-solving.
+  Great if you like buildings and problem-solving. See
+  [how to become a building surveyor](/how-to-become-a-building-surveyor).
 - **Quantity surveyor** — costs, contracts and commercial management of
-  construction.
+  construction. See
+  [how to become a quantity surveyor](/how-to-become-a-quantity-surveyor).
 - **Valuation surveyor** — assessing property value for sales, lending and tax.
+  See [how to become a valuation surveyor](/how-to-become-a-valuation-surveyor).
 - **Energy assessor (DEA)** — producing EPCs and assessing energy efficiency. A
   very accessible entry point — see [EPC assessor training](/epc-assessor-training).
 
 And the niches worth knowing about:
 
-- **Retrofit assessor** — the fast-growing energy/retrofit specialism. See
-  [retrofit assessor training](/retrofit-assessor-training).
+- **Retrofit assessor & coordinator** — the fast-growing energy/retrofit
+  specialisms. See [retrofit assessor training](/retrofit-assessor-training) and
+  [retrofit coordinator training](/retrofit-coordinator-training).
 - **Party wall surveyor** — a specific legal niche. See
   [party wall surveying](/party-wall-surveyor).
 - **Damp & mould / housing-condition specialist** — increasingly in demand under
-  Awaab's Law; closely tied to [HHSRS](/hhsrs-training).
+  Awaab's Law. See [damp surveyor training](/damp-surveyor-training) and
+  [HHSRS training](/hhsrs-training).
 
 ## Routes into surveying
 
 There's more than one way in. The main routes:
 
 1. **RICS-accredited degree → RICS APC.** The traditional chartered route: an
-   accredited degree, then the **Assessment of Professional Competence** to become
-   chartered (MRICS). <!-- TODO: Dom verify current accreditation/APC details. -->
+   accredited degree, then the [RICS APC](/rics-apc) to become
+   [chartered (MRICS)](/how-to-become-a-chartered-surveyor).
+   <!-- TODO: Dom verify current accreditation/APC details. -->
 2. **Surveying apprenticeship.** Earn while you learn, combining paid work with
-   study toward a qualification. <!-- TODO: Dom verify current apprenticeship standards. -->
+   study toward a qualification — see
+   [surveying apprenticeships](/surveying-apprenticeships).
+   <!-- TODO: Dom verify current apprenticeship standards. -->
 3. **Conversion route.** Graduates from other subjects can take an accredited
    conversion qualification. <!-- TODO: Dom verify. -->
 4. **Specialist vocational routes.** Some specialisms — notably **domestic energy
