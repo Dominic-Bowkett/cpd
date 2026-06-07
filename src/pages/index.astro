@@ -1,0 +1,236 @@
+---
+/**
+ * Home — orients the three routes (becoming a surveyor, energy & retrofit
+ * assessment, CPD & free resources), establishes Dom as practitioner-who-trains,
+ * teases the free CPD directory, and captures email. Sitewide schema:
+ * WebSite + Organization + Person.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SignupForm from "../components/SignupForm.astro";
+import { SITE, AUTHOR } from "../config";
+import { graph, webSiteSchema, organizationSchema, personSchema } from "../lib/schema";
+
+const schema = graph(webSiteSchema(), organizationSchema(), personSchema());
+
+const homeDescription =
+  "Train, qualify and stay current in property surveying, energy assessment and retrofit — practitioner-led career routes, a curated free-CPD directory and courses from a working surveyor who also trains new students.";
+
+// Three route cards (PAGES §1).
+const routes = [
+  {
+    kicker: "Get qualified",
+    title: "Becoming a surveyor",
+    body: "How to get into surveying — the types of surveyor, the routes in (degree, apprenticeship, conversion, RICS APC) and how to specialise.",
+    href: "/become-a-surveyor",
+    cta: "How to become a surveyor",
+    links: [
+      { label: "EPC / domestic energy assessor", href: "/epc-assessor-training" },
+      { label: "Party wall surveying", href: "/party-wall-surveyor" },
+    ],
+  },
+  {
+    kicker: "Energy & retrofit",
+    title: "Energy & retrofit assessment",
+    body: "Enter the fast-growing energy and retrofit field — become a Domestic Energy Assessor or retrofit assessor as MEES, EPC reform and PAS 2035 drive demand.",
+    href: "/retrofit-assessor-training",
+    cta: "Retrofit assessor training",
+    links: [
+      { label: "EPC assessor / DEA training", href: "/epc-assessor-training" },
+      { label: "HHSRS training", href: "/hhsrs-training" },
+    ],
+  },
+  {
+    kicker: "Stay current",
+    title: "CPD & free resources",
+    body: "A curated, practitioner-annotated directory of (mostly free) CPD across damp & mould, energy, retrofit, building pathology and the regulations.",
+    href: "/cpd/free-resources",
+    cta: "Browse free CPD",
+    links: [
+      { label: "What CPD is & how to log it", href: "/cpd" },
+      { label: "Dom's CPD courses", href: "/courses" },
+    ],
+  },
+];
+---
+
+<BaseLayout title={SITE.name} description={homeDescription} ogType="website" schema={[schema]}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container measure">
+      <p class="kicker">Surveying · Energy assessment · Retrofit · CPD</p>
+      <h1>Train, qualify and stay current in property surveying &amp; energy assessment</h1>
+      <p class="lede">
+        Practitioner-led routes into surveying, energy assessment and retrofit —
+        plus a curated free-CPD directory — from {AUTHOR.name}, a working surveyor
+        who also trains new students.
+      </p>
+      <p class="hero-actions">
+        <a class="btn btn-primary" href="/become-a-surveyor">Start your route in</a>
+        <a class="btn btn-ghost" href="/cpd/free-resources">Browse free CPD</a>
+      </p>
+      <p class="hero-note">
+        For aspiring and practising property professionals across the UK.
+      </p>
+    </div>
+  </section>
+
+  <!-- Route cards -->
+  <section class="section container" aria-labelledby="routes-h">
+    <h2 id="routes-h" class="section-h">Pick your route</h2>
+    <div class="cards">
+      {
+        routes.map((r) => (
+          <article class="card route-card">
+            <p class="route-kicker">{r.kicker}</p>
+            <h3>{r.title}</h3>
+            <p class="route-body">{r.body}</p>
+            <ul class="route-links">
+              {r.links.map((l) => (
+                <li>
+                  <a href={l.href}>{l.label}</a>
+                </li>
+              ))}
+            </ul>
+            <a class="btn btn-primary route-cta" href={r.href}>
+              {r.cta}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Why this site / who's behind it -->
+  <section class="section container" aria-labelledby="trust-h">
+    <div class="trust card measure">
+      <img
+        class="trust-photo"
+        src={AUTHOR.photo}
+        alt={`${AUTHOR.name}, ${AUTHOR.jobTitle}`}
+        width="88"
+        height="88"
+        loading="lazy"
+        decoding="async"
+      />
+      <div>
+        <h2 id="trust-h" class="trust-h">An expert who trains</h2>
+        <p>
+          This hub is run by <strong>{AUTHOR.name}</strong> —
+          {AUTHOR.credentials.join(" · ")}. Dom assesses and surveys property for
+          real <em>and</em> trains people entering the profession, so the guidance
+          here comes from someone doing the job and teaching it. Where a route,
+          cost or requirement could change, we say so and point you to the body
+          that sets it.
+        </p>
+        <p><a href={AUTHOR.aboutUrl}>About Dom and how this site works →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Free CPD directory teaser -->
+  <section class="section container" aria-labelledby="cpd-h">
+    <div class="cpd-teaser measure">
+      <h2 id="cpd-h">The free CPD directory</h2>
+      <p>
+        Keeping your CPD current shouldn't cost a fortune. Our directory gathers
+        the best (mostly free) CPD across the property professions — each entry
+        annotated with what it covers, who it suits, and Dom's honest take. It's
+        the part of this site worth bookmarking now.
+      </p>
+      <p class="cpd-actions">
+        <a class="btn btn-accent" href="/cpd/free-resources">Open the free CPD directory</a>
+        <a class="btn btn-ghost" href="/cpd">What counts as CPD?</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Email capture -->
+  <section class="section container">
+    <div class="measure">
+      <SignupForm source="home" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(1100px 420px at 12% -10%, #d6eefe 0%, rgba(214, 238, 254, 0) 60%),
+      radial-gradient(900px 360px at 95% 0%, #d8f7fc 0%, rgba(216, 247, 252, 0) 55%),
+      linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+    border-bottom: 1px solid var(--color-border);
+    padding-block: var(--space-16);
+  }
+  .kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+  .lede { font-size: 1.1875rem; color: var(--color-ink); }
+  .hero-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-6); }
+  .hero-note { font-size: 0.875rem; color: var(--color-muted); margin-top: var(--space-6); }
+
+  .section { padding-block: var(--space-12); }
+  .section-h { text-align: center; margin-bottom: var(--space-8); }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-6);
+  }
+  .route-card {
+    display: flex;
+    flex-direction: column;
+    border-top: 4px solid var(--color-accent);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .route-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(14, 23, 38, .12);
+  }
+  .route-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-accent-dark);
+    margin: 0 0 var(--space-2);
+  }
+  .route-card h3 { margin-top: 0; }
+  .route-body { color: var(--color-muted); }
+  .route-links { list-style: none; padding: 0; margin: 0 0 var(--space-6); }
+  .route-links li { margin-bottom: var(--space-2); }
+  .route-links a { font-weight: 500; }
+  .route-cta { margin-top: auto; align-self: flex-start; }
+
+  .trust { display: flex; gap: var(--space-6); align-items: flex-start; }
+  .trust-photo {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: none;
+    background: var(--color-border);
+  }
+  .trust-h { margin-top: 0; font-size: 1.375rem; }
+  .trust p:last-child { margin-bottom: 0; }
+
+  .cpd-teaser {
+    background: var(--color-ink);
+    color: var(--color-on-dark);
+    border-radius: var(--radius);
+    padding: var(--space-8);
+  }
+  .cpd-teaser h2 { color: #fff; margin-top: 0; }
+  .cpd-teaser p { color: var(--color-on-dark); }
+  .cpd-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-6); margin-bottom: 0; }
+  .cpd-teaser .btn-ghost { color: #fff; border-color: rgba(255,255,255,.5); }
+  .cpd-teaser .btn-ghost:hover { background: rgba(255,255,255,.1); }
+
+  @media (max-width: 519px) {
+    .trust { flex-direction: column; }
+  }
+</style>

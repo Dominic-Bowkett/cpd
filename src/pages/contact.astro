@@ -1,0 +1,74 @@
+---
+/**
+ * /contact — general contact page. Explains what Dom can help with and uses a
+ * lightweight mailto enquiry (reusing the SignupForm's email approach via a
+ * direct mailto link + the signup block for the list).
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SignupForm from "../components/SignupForm.astro";
+import { AUTHOR, SITE } from "../config";
+import { graph, organizationSchema, personSchema, breadcrumbSchema } from "../lib/schema";
+import type { Crumb } from "../lib/schema";
+
+const title = "Contact";
+const description =
+  "Get in touch with the Surveyor CPD Hub — questions about training routes, CPD, a correction, or interest in Dom's courses.";
+
+const crumbs: Crumb[] = [
+  { label: "Home", href: "/" },
+  { label: "Contact", href: "/contact" },
+];
+const schema = graph(organizationSchema(), personSchema(), breadcrumbSchema(crumbs));
+---
+
+<BaseLayout title={title} description={description} ogType="website" schema={[schema]}>
+  <div class="container">
+    <article class="measure contact-page">
+      <Breadcrumbs crumbs={crumbs} />
+
+      <h1>Contact</h1>
+      <p class="lede">
+        A question about a training route, a suggestion for the CPD directory, a
+        correction, or interest in a course? I'd be glad to hear from you.
+      </p>
+
+      <h2>What I can help with</h2>
+      <ul>
+        <li>Questions about qualifying as a <a href="/become-a-surveyor">surveyor</a>, <a href="/epc-assessor-training">energy assessor</a> or <a href="/retrofit-assessor-training">retrofit assessor</a>.</li>
+        <li>Suggesting a free CPD resource to add to the <a href="/cpd/free-resources">directory</a>.</li>
+        <li>Interest in my <a href="/courses">CPD courses</a> or speaking/training enquiries.</li>
+        <li>Corrections or feedback on anything you've read here.</li>
+      </ul>
+
+      <h2>Email me directly</h2>
+      <p>
+        The quickest way to reach me is by email at
+        <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>. I read
+        everything, though please bear with me on replies.
+      </p>
+
+      <p class="caveat">
+        Please note this site offers general guidance, not personalised careers,
+        legal or financial advice — always confirm qualification routes, costs and
+        CPD requirements with the relevant professional body before you commit.
+      </p>
+
+      <SignupForm source="contact" />
+
+      <p class="signoff">
+        Prefer to know who you're talking to first? Read
+        <a href={AUTHOR.aboutUrl}>about {AUTHOR.name}</a>.
+      </p>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .contact-page { padding-block: var(--space-8) var(--space-12); }
+  .lede { font-size: 1.1875rem; }
+  .contact-page ul { padding-left: 1.25rem; }
+  .contact-page li { margin-bottom: var(--space-2); }
+  .caveat { color: var(--color-muted); font-size: 0.9375rem; }
+  .signoff { color: var(--color-muted); margin-top: var(--space-8); }
+</style>

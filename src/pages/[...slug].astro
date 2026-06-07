@@ -1,0 +1,79 @@
+---
+/**
+ * Catch-all route that renders every content-collection entry through
+ * ArticleLayout. URL = collection base path + entry slug. Named .astro pages
+ * (/, /about, /courses, …) take precedence over this rest route.
+ */
+import { getCollection, type CollectionEntry } from "astro:content";
+import ArticleLayout from "../layouts/ArticleLayout.astro";
+import type { Crumb } from "../lib/schema";
+import { type Collection, PILLAR_LABEL, PILLAR_HOME, urlFor } from "../lib/routes";
+
+export async function getStaticPaths() {
+  const collections: Collection[] = ["training", "cpd"];
+  const all = (
+    await Promise.all(
+      collections.map(async (c) => {
+        const entries = await getCollection(c, ({ data }) => !data.draft);
+        return entries.map((entry) => ({ collection: c, entry }));
+      }),
+    )
+  ).flat();
+
+  return all.map(({ collection, entry }) => {
+    const url = urlFor(collection, entry.slug);
+    // Related links = sibling entries in the same collection.
+    const related = all
+      .filter((o) => o.collection === collection && o.entry.slug !== entry.slug)
+      .slice(0, 4)
+      .map((o) => ({
+        label: o.entry.data.title,
+        href: urlFor(o.collection, o.entry.slug),
+      }));
+
+    return {
+      // params.slug is the URL minus the leading slash.
+      params: { slug: url.replace(/^\//, "") },
+      props: { collection, entry, related },
+    };
+  });
+}
+
+interface Props {
+  collection: Collection;
+  entry: CollectionEntry<Collection>;
+  related: { label: string; href: string }[];
+}
+
+const { collection, entry, related } = Astro.props as Props;
+const { Content } = await entry.render();
+const data = entry.data;
+
+const selfUrl = urlFor(collection, entry.slug);
+const pillarHome = PILLAR_HOME[collection];
+
+// Breadcrumb trail: Home → (section hub, if any) → this page.
+const crumbs: Crumb[] = [{ label: "Home", href: "/" }];
+// Add a section crumb only when the collection has a real hub page that isn't
+// this page and isn't just Home (training pages sit directly under Home).
+if (pillarHome !== "/" && selfUrl !== pillarHome) {
+  crumbs.push({ label: PILLAR_LABEL[collection], href: pillarHome });
+}
+crumbs.push({ label: data.title, href: selfUrl });
+---
+
+<ArticleLayout
+  title={data.title}
+  description={data.description}
+  lastReviewed={data.lastReviewed}
+  datePublished={data.datePublished}
+  cta={data.cta}
+  course={data.course}
+  faqs={data.faqs}
+  howToSteps={data.howToSteps}
+  ogImage={data.ogImage}
+  crumbs={crumbs}
+  relatedLinks={related}
+>
+  <Content />
+</ArticleLayout>

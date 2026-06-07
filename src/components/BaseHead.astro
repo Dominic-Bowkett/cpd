@@ -1,0 +1,129 @@
+---
+/**
+ * BaseHead — all <head> meta for a page: title, description, canonical,
+ * Open Graph + Twitter cards, favicon, global styles, JSON-LD schema, and
+ * analytics placeholders. Every page flows through here via BaseLayout.
+ */
+import { SITE } from "../config";
+import "../styles/tokens.css";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path or absolute URL for the canonical. Defaults to current request URL. */
+  canonical?: string;
+  /** OG image path/URL. Falls back to the site default. */
+  ogImage?: string;
+  /** Page type for OG — "website" for landing pages, "article" for content. */
+  ogType?: "website" | "article";
+  /** Array of JSON-LD objects (use helpers in src/lib/schema.ts). */
+  schema?: Array<Record<string, unknown>>;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = SITE.defaultOgImage,
+  ogType = "website",
+  schema = [],
+} = Astro.props;
+
+const siteBase = SITE.url.replace(/\/$/, "");
+// Build canonical from the current path unless one is explicitly passed.
+// Concatenate (don't use `new URL`) so the configured domain keeps its exact form.
+const canonicalUrl = canonical
+  ? (/^https?:\/\//.test(canonical) ? canonical : `${siteBase}${canonical}`)
+  : `${siteBase}${Astro.url.pathname}`;
+
+const ogImageUrl = /^https?:\/\//.test(ogImage) ? ogImage : `${siteBase}${ogImage}`;
+
+// Title pattern: page title + brand, unless the page already is the brand.
+const fullTitle = title === SITE.name ? title : `${title} | ${SITE.name}`;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:locale" content={SITE.locale} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImageUrl} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+<!-- Ahrefs Web Analytics (cookieless — no consent needed). -->
+{
+  SITE.ahrefsKey && (
+    <script
+      is:inline
+      src="https://analytics.ahrefs.com/analytics.js"
+      data-key={SITE.ahrefsKey}
+      async
+    />
+  )
+}
+
+<!-- JSON-LD structured data -->
+{
+  schema.map((node) => (
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(node)}
+    />
+  ))
+}
+
+<!-- Google Analytics 4 with Consent Mode v2 — analytics stays denied (no
+     cookies) until the visitor opts in via the consent banner. -->
+{
+  SITE.ga4Id && (
+    <>
+      <script
+        is:inline
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${SITE.ga4Id}`}
+      />
+      <script is:inline define:vars={{ ga4Id: SITE.ga4Id }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        // Default: deny storage/cookies until the user consents.
+        gtag("consent", "default", {
+          ad_storage: "denied",
+          analytics_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          functionality_storage: "granted",
+          security_storage: "granted",
+          wait_for_update: 500,
+        });
+        // Re-apply a previously saved "accept" before configuring GA.
+        try {
+          if (localStorage.getItem("scpd-consent") === "granted") {
+            gtag("consent", "update", { analytics_storage: "granted" });
+          }
+        } catch (e) {}
+        gtag("js", new Date());
+        gtag("config", ga4Id, { anonymize_ip: true });
+      </script>
+    </>
+  )
+}

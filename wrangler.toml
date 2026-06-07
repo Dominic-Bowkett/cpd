@@ -1,0 +1,14 @@
+# Cloudflare Pages configuration.
+# Pages serves the static build in dist/ and auto-deploys Functions from /functions.
+#
+# In the Cloudflare Pages dashboard (or `wrangler pages deploy`):
+#   Build command:      npm run build
+#   Build output dir:   dist
+#
+# Set lead-handler secrets as Pages environment variables (never commit them):
+#   RESEND_API_KEY   (required to switch the signup form to auto-send)
+#   LEAD_TO, LEAD_FROM   (optional overrides — see functions/api/lead.js)
+
+name = "surveyor-cpd-hub"
+pages_build_output_dir = "dist"
+compatibility_date = "2025-06-01"

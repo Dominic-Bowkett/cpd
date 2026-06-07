@@ -1,0 +1,114 @@
+---
+/**
+ * /courses — Dom's own CPD, placeholder phase (PAGES §8). Honest "in development,
+ * added as ready" positioning — no countdowns or slipping launch dates — with a
+ * value-led signup for early access. Points to the free directory meanwhile.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SignupForm from "../components/SignupForm.astro";
+import { graph, organizationSchema, personSchema, breadcrumbSchema } from "../lib/schema";
+import type { Crumb } from "../lib/schema";
+
+const title = "CPD courses for property professionals";
+const description =
+  "Practitioner-led CPD courses from a working surveyor and trainer — in development and added as they're ready. Join the list for early access and a launch discount.";
+
+const crumbs: Crumb[] = [
+  { label: "Home", href: "/" },
+  { label: "Courses", href: "/courses" },
+];
+const schema = graph(organizationSchema(), personSchema(), breadcrumbSchema(crumbs));
+
+// What's coming — framed as topics, added as ready (no dates).
+const planned = [
+  { topic: "Awaab's Law in practice", note: "What the duties mean day-to-day and how to evidence compliance." },
+  { topic: "HHSRS for practitioners", note: "Hazard assessment, scoring and reporting — the working surveyor's view." },
+  { topic: "Damp diagnosis", note: "Reading the building: condensation vs penetrating vs rising damp, and getting the cause right." },
+  { topic: "EPC & retrofit fundamentals", note: "Where energy assessment meets PAS 2035 retrofit — and where the work is going." },
+];
+---
+
+<BaseLayout title={title} description={description} ogType="website" schema={[schema]}>
+  <div class="container">
+    <article class="measure courses-page">
+      <Breadcrumbs crumbs={crumbs} />
+
+      <h1>CPD courses</h1>
+      <p class="lede">
+        Practical CPD from a surveyor who's doing the work and training others to
+        do it. I'm building these properly rather than rushing them — so they go
+        live as each one is ready, not against a countdown.
+      </p>
+
+      <div class="status card">
+        <p class="status-badge">In development</p>
+        <p>
+          There's nothing to buy yet, and I won't pretend otherwise. Rather than
+          announce a launch date that might slip, I'm adding courses here as they're
+          finished. The fastest way to hear first — and get a launch discount — is
+          to join the list below.
+        </p>
+      </div>
+
+      <h2>What's coming</h2>
+      <p>Topics I'm developing, drawn from the questions I get most and the regulation that's reshaping the field:</p>
+      <ul class="planned">
+        {
+          planned.map((p) => (
+            <li>
+              <strong>{p.topic}</strong> — {p.note}
+            </li>
+          ))
+        }
+      </ul>
+      <p class="planned-note">
+        <!-- TODO: Dom to confirm the first course(s) and the platform
+             (Teachable / Thinkific / Gumroad). Sales/checkout will be handled by
+             that platform — embed or link out; don't build payments here. -->
+        Format and pricing will be confirmed per course. Delivery and payment will
+        be handled by an established course platform.
+      </p>
+
+      <SignupForm
+        source="courses"
+        heading="Be first in — and get a launch discount"
+        intro="Join the list and I'll let you know the moment a course is ready, with early-access pricing for subscribers. You'll also get the monthly free-CPD roundup in the meantime."
+        cta="Join the early-access list"
+        subject="Early access — Surveyor CPD Hub courses"
+      />
+
+      <section class="meanwhile card">
+        <h2>In the meantime — free CPD</h2>
+        <p>
+          You don't need to wait to keep your CPD moving. Browse the curated,
+          annotated directory of (mostly free) CPD across the property professions.
+        </p>
+        <a class="btn btn-primary" href="/cpd/free-resources">Browse the free CPD directory</a>
+      </section>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .courses-page { padding-block: var(--space-8) var(--space-12); }
+  .lede { font-size: 1.1875rem; }
+  .status { margin-block: var(--space-8); border-left: 4px solid var(--color-accent); }
+  .status-badge {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-accent-dark);
+    background: var(--color-surface);
+    padding: var(--space-1) var(--space-3);
+    border-radius: 999px;
+    margin: 0 0 var(--space-3);
+  }
+  .planned { padding-left: 1.25rem; }
+  .planned li { margin-bottom: var(--space-3); }
+  .planned-note { color: var(--color-muted); font-size: 0.9375rem; }
+  .meanwhile { margin-top: var(--space-12); }
+  .meanwhile h2 { margin-top: 0; }
+</style>

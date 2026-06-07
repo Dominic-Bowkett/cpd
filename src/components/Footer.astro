@@ -1,0 +1,132 @@
+---
+/**
+ * Sitewide footer: link groups, author one-liner and an accuracy disclaimer
+ * (qualification routes, costs and CPD rules change — verify with the body).
+ */
+import { SITE, AUTHOR, FOOTER_LINKS } from "../config";
+
+const year = new Date().getFullYear();
+const groups = Object.entries(FOOTER_LINKS);
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      {
+        groups.map(([heading, links]) => (
+          <nav class="footer-col" aria-label={heading}>
+            <h2 class="footer-heading">{heading}</h2>
+            <ul>
+              {links.map((l) => (
+                <li>
+                  <a href={l.href}>{l.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+
+    <div class="footer-meta">
+      <p class="footer-author">
+        Written by <a href={AUTHOR.aboutUrl}>{AUTHOR.name}</a>,
+        {AUTHOR.credentials.join(" · ")} — a practising surveyor who trains new
+        students.
+      </p>
+      <p class="footer-disclaimer">
+        Guidance only — not careers, legal or financial advice. Qualification
+        routes, costs and CPD requirements change, so always confirm the current
+        position with the relevant body
+        (<a href="https://www.rics.org" rel="nofollow">RICS</a>,
+        <a href="https://www.architecture.com" rel="nofollow">RIBA</a>,
+        <a href="https://www.arb.org.uk" rel="nofollow">ARB</a>,
+        <a href="https://www.property-care.org" rel="nofollow">PCA</a>,
+        <a href="https://www.trustmark.org.uk" rel="nofollow">TrustMark</a> or
+        <a href="https://www.gov.uk" rel="nofollow">gov.uk</a>) before you commit.
+      </p>
+      <p class="footer-copy">
+        © {year} {SITE.name}. All rights reserved.
+        {SITE.ga4Id && (
+          <>
+            {" · "}
+            <button type="button" class="footer-cookie" data-cookie-settings>
+              Cookie settings
+            </button>
+          </>
+        )}
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-footer-bg);
+    color: var(--color-on-dark);
+    border-top: 4px solid var(--color-accent);
+    margin-top: var(--space-16);
+    padding-block: var(--space-12) var(--space-8);
+    font-size: 0.9375rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space-8);
+  }
+  .footer-heading {
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-3);
+  }
+  .footer-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .footer-col li { margin-bottom: var(--space-2); }
+  .footer-col a {
+    color: var(--color-on-dark);
+    text-decoration: none;
+  }
+  .footer-col a:hover { color: var(--color-accent); text-decoration: underline; }
+
+  .footer-meta {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    color: var(--color-on-dark-muted);
+  }
+  .footer-meta p { margin: 0 0 var(--space-3); }
+  .footer-meta a { color: var(--color-on-dark); }
+  .footer-meta a:hover { color: var(--color-accent); }
+  .footer-author { color: var(--color-on-dark); }
+  .footer-author a { color: var(--color-accent); }
+  .footer-copy { font-size: 0.875rem; }
+  .footer-cookie {
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: var(--color-accent);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .footer-cookie:hover { color: var(--color-on-dark); }
+</style>
+
+<script is:inline>
+  // Reopen the consent banner from the footer "Cookie settings" link.
+  (function () {
+    var btn = document.querySelector("[data-cookie-settings]");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      if (window.scpdConsent && typeof window.scpdConsent.show === "function") {
+        window.scpdConsent.show();
+      }
+    });
+  })();
+</script>

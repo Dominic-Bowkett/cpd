@@ -1,0 +1,180 @@
+---
+/**
+ * About — the author authority page (E-E-A-T anchor). Leads with Dom's dual
+ * standing (practitioner + trainer), explains his credentials in plain English,
+ * and what the site offers. Schema: Person (w/ hasCredential) + Organization +
+ * BreadcrumbList. Biographical specifics are left as TODOs for Dom.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SignupForm from "../components/SignupForm.astro";
+import { AUTHOR } from "../config";
+import { graph, personSchema, organizationSchema, breadcrumbSchema } from "../lib/schema";
+import type { Crumb } from "../lib/schema";
+
+const title = `About ${AUTHOR.name} — practitioner & trainer`;
+const description = `About ${AUTHOR.name}, a practising Domestic Energy Assessor and building surveyor who also trains new students, and the thinking behind this surveyor training and CPD hub.`;
+
+const crumbs: Crumb[] = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+];
+
+const schema = graph(organizationSchema(), personSchema(), breadcrumbSchema(crumbs));
+
+// Credential glossary — explains each post-nominal in plain English.
+// TODO: Dom to confirm the exact awarding bodies / wording for each.
+const credentialNotes = [
+  { code: "CertDEA", note: "Certified Domestic Energy Assessor — qualified to produce Energy Performance Certificates (EPCs)." },
+  { code: "BA Hons", note: "Bachelor of Arts with Honours." },
+  { code: "GDL", note: "Graduate Diploma in Law — conversion qualification in English law." },
+  { code: "MSc", note: "Master of Science. <!-- TODO: Dom to add subject/field -->" },
+  { code: "MRPSA (Trustmark)", note: "Member of the Residential Property Surveyors Association, TrustMark-registered." },
+];
+
+const lastReviewed = new Date("2026-06-07");
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+---
+
+<BaseLayout title={title} description={description} ogType="article" schema={[schema]}>
+  <div class="container">
+    <article class="about measure">
+      <Breadcrumbs crumbs={crumbs} />
+
+      <header>
+        <h1>About {AUTHOR.name}</h1>
+        <p class="reviewed">Last reviewed <time datetime={lastReviewed.toISOString()}>{fmt(lastReviewed)}</time></p>
+      </header>
+
+      <div class="intro">
+        <img
+          class="about-photo"
+          src={AUTHOR.photo}
+          alt={`${AUTHOR.name}, ${AUTHOR.jobTitle}`}
+          width="120"
+          height="120"
+          loading="lazy"
+          decoding="async"
+        />
+        <p class="about-lead">
+          <strong>{AUTHOR.name}</strong>, {AUTHOR.credentials.join(" · ")} — a
+          practising Domestic Energy Assessor and building surveyor who also
+          <strong>trains the next generation</strong> of property professionals.
+        </p>
+      </div>
+
+      <h2>An expert who trains</h2>
+      <p>
+        I work in residential property condition and energy assessment — and I
+        teach it. That dual standing matters: a lot of "how to qualify" advice
+        online is written by people who've never done the job, or who only do the
+        job and have never had to explain it to someone starting out. I do both,
+        every week. You can also find me at
+        <a href={AUTHOR.website} target="_blank" rel="noopener">{AUTHOR.websiteLabel}</a>.
+      </p>
+      <p>
+        <!-- TODO: Dom to add real career detail — years of experience, the types
+             of assessment/survey work you do, who you train and through what,
+             notable roles. Keep claims accurate and verifiable. -->
+        I built this hub because the people I train kept asking the same
+        questions: which route should I take, what does it actually cost, where
+        do I find good CPD that won't break the bank? This is the answer in one
+        place — honest, practical and kept current.
+      </p>
+
+      <h2>My qualifications</h2>
+      <p>
+        I write under my real name and credentials because, when you're deciding
+        how to spend money and years on a career, you should be able to see and
+        check who's advising you:
+      </p>
+      <dl class="creds">
+        {
+          credentialNotes.map((c) => (
+            <div class="cred">
+              <dt>{c.code}</dt>
+              <dd set:html={c.note} />
+            </div>
+          ))
+        }
+      </dl>
+      <p class="creds-note">
+        <!-- TODO: Dom to add links to verify memberships (RPSA / TrustMark
+             register) and the EPC assessor register, where public. -->
+        Where possible I link to the public registers so you can verify these
+        credentials independently.
+      </p>
+
+      <h2>What this site offers</h2>
+      <ul>
+        <li><strong>Career routes</strong> — plain-English guides to qualifying as a <a href="/become-a-surveyor">surveyor</a>, <a href="/epc-assessor-training">energy assessor</a>, <a href="/retrofit-assessor-training">retrofit assessor</a> and more.</li>
+        <li><strong>A free CPD directory</strong> — a <a href="/cpd/free-resources">curated, annotated list</a> of (mostly free) CPD, so you can keep current without guessing what's worth your time.</li>
+        <li><strong>CPD courses</strong> — my own CPD, <a href="/courses">added as it's ready</a>, for practitioners who want training from someone in the field.</li>
+      </ul>
+
+      <h2>How I keep this trustworthy</h2>
+      <ul>
+        <li><strong>Cited to the source.</strong> Qualification routes and CPD requirements reference the bodies that set them (RICS, RIBA, ARB, PCA, TrustMark, gov.uk).</li>
+        <li><strong>Reviewed and dated.</strong> Each guide shows a "last reviewed" date so you can see how current it is.</li>
+        <li><strong>Honest about change.</strong> Routes, costs and rules change — where a figure could be out of date, I flag it rather than state it as gospel.</li>
+        <li><strong>No hype.</strong> Courses are described as "in development, added as ready" — no countdowns, no pressure.</li>
+      </ul>
+
+      <SignupForm source="about" />
+
+      <section class="about-cta card">
+        <h2>Get in touch</h2>
+        <p>
+          A question about a route, a correction, or interested in training?
+          I'd be glad to hear from you.
+        </p>
+        <a class="btn btn-primary" href="/contact">Contact {AUTHOR.name.split(" ")[0]}</a>
+      </section>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .about { padding-block: var(--space-8) var(--space-12); }
+  .reviewed {
+    color: var(--color-muted);
+    font-size: 0.875rem;
+    margin-top: calc(-1 * var(--space-2));
+  }
+  .intro {
+    display: flex;
+    gap: var(--space-6);
+    align-items: center;
+    margin-block: var(--space-6) var(--space-8);
+  }
+  .about-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: none;
+    background: var(--color-border);
+  }
+  .about-lead { font-size: 1.0625rem; margin: 0; }
+
+  .creds { margin: var(--space-6) 0; }
+  .cred {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: var(--space-4);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .cred dt { font-weight: 700; color: var(--color-primary); }
+  .cred dd { margin: 0; color: var(--color-ink); }
+  .creds-note { color: var(--color-muted); font-size: 0.9375rem; }
+
+  .about-cta { margin-top: var(--space-12); }
+  .about-cta h2 { margin-top: 0; }
+
+  @media (max-width: 519px) {
+    .intro { flex-direction: column; align-items: flex-start; }
+    .cred { grid-template-columns: 1fr; gap: var(--space-1); }
+  }
+</style>

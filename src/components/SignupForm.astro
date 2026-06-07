@@ -1,0 +1,236 @@
+---
+/**
+ * SignupForm — value-led email capture. This is the site's primary conversion
+ * element (BRIEF §5): the warm list that paid CPD will launch to.
+ *
+ * Two modes:
+ *  - mode="email" (DEFAULT): builds a pre-filled email from the entered values
+ *    and opens the visitor's own email client (mailto:). No backend required and
+ *    a natural spam filter; works without JS too.
+ *  - mode="post": auto-sends via the Cloudflare Pages Function /api/lead (which
+ *    emails you through Resend). Switch on later — set RESEND_API_KEY as a Pages
+ *    secret and change this default to "post" (or wire it to your CRM/ESP).
+ *
+ * TODO: when an email/CRM provider is chosen (Mailchimp, Kit, Resend → list),
+ *       point mode="post" at it. Until then mailto keeps capture working.
+ *
+ * Honeypot field "company" is hidden from humans and dropped if filled.
+ */
+import { SITE } from "../config";
+
+interface Props {
+  /** Appears in the email so you know which form/page it came from. */
+  source?: string;
+  heading?: string;
+  intro?: string;
+  cta?: string;
+  /** "email" = mailto (default), "post" = serverless auto-send via /api/lead. */
+  mode?: "email" | "post";
+  /** Email subject line (email mode). */
+  subject?: string;
+}
+const {
+  source = "newsletter",
+  heading = "Get the free-CPD roundup",
+  intro =
+    "One email a month: newly added free CPD for property professionals, plus early access and a launch discount on Dom's own courses. No spam, unsubscribe anytime.",
+  cta = "Send me free CPD",
+  mode = "email",
+  subject = "Sign me up — Surveyor CPD Hub",
+} = Astro.props;
+
+const formId = `signup-${Math.random().toString(36).slice(2, 8)}`;
+const action = mode === "email" ? `mailto:${SITE.contactEmail}` : "/api/lead";
+---
+
+<section class="signup-form card" aria-labelledby={`${formId}-h`}>
+  <h2 id={`${formId}-h`} class="signup-heading">{heading}</h2>
+  <p class="signup-intro">{intro}</p>
+
+  <form
+    id={formId}
+    class="signup"
+    method="post"
+    action={action}
+    enctype={mode === "email" ? "text/plain" : undefined}
+    data-signup-form
+    data-mode={mode}
+    data-email={SITE.contactEmail}
+    data-subject={subject}
+  >
+    <input type="hidden" name="source" value={source} />
+
+    <!-- Honeypot: visually hidden + aria-hidden; real users never see it. -->
+    <div class="hp" aria-hidden="true">
+      <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for={`${formId}-name`}>Your name</label>
+        <input id={`${formId}-name`} name="name" type="text" required autocomplete="name" />
+      </div>
+
+      <div class="field">
+        <label for={`${formId}-email`}>Your email</label>
+        <input id={`${formId}-email`} name="email" type="email" required autocomplete="email" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for={`${formId}-role`}>Where are you at? <span class="opt">(optional)</span></label>
+      <select id={`${formId}-role`} name="role">
+        <option value="">Choose one…</option>
+        <option value="aspiring">Thinking about training</option>
+        <option value="training">Currently training / qualifying</option>
+        <option value="practising">Practising professional</option>
+        <option value="other">Something else</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-accent">{cta}</button>
+
+    <p class="signup-status" data-signup-status role="status" aria-live="polite" hidden></p>
+    <p class="signup-privacy">
+      {mode === "email"
+        ? "Clicking the button opens your own email app with the details filled in — you stay in control and just press send."
+        : "We use your details only to send you the CPD roundup. Unsubscribe anytime."}
+      See our <a href="/privacy">privacy notice</a>.
+    </p>
+  </form>
+</section>
+
+<script is:inline>
+  (function () {
+    document.querySelectorAll("[data-signup-form]").forEach(function (form) {
+      var status = form.querySelector("[data-signup-status]");
+      var mode = form.getAttribute("data-mode") || "email";
+
+      function showStatus(msg, kind) {
+        if (!status) return;
+        status.hidden = false;
+        status.textContent = msg;
+        status.classList.remove("ok", "err");
+        if (kind) status.classList.add(kind);
+      }
+
+      function fields() {
+        var f = new FormData(form);
+        return {
+          company: (f.get("company") || "").toString(),
+          name: (f.get("name") || "").toString().trim(),
+          email: (f.get("email") || "").toString().trim(),
+          role: (f.get("role") || "").toString().trim(),
+          source: (f.get("source") || "").toString(),
+        };
+      }
+
+      form.addEventListener("submit", async function (e) {
+        var d = fields();
+        // Honeypot — silently stop bots.
+        if (d.company) { e.preventDefault(); return; }
+
+        if (mode === "email") {
+          // Build a pre-filled email and open the visitor's own mail client.
+          e.preventDefault();
+          if (!d.name || !d.email) {
+            showStatus("Please add your name and email first.", "err");
+            return;
+          }
+          var to = form.getAttribute("data-email");
+          var subject = form.getAttribute("data-subject") || "Sign me up";
+          var lines = [
+            "Name: " + d.name,
+            "Email: " + d.email,
+            "Stage: " + (d.role || "—"),
+            "Signed up from: " + (d.source || "—"),
+            "",
+            "Please add me to the free-CPD roundup.",
+          ];
+          var href =
+            "mailto:" + to +
+            "?subject=" + encodeURIComponent(subject) +
+            "&body=" + encodeURIComponent(lines.join("\r\n"));
+          window.location.href = href;
+          showStatus(
+            "Opening your email app… If nothing happens, email us at " + to + ".",
+            "ok"
+          );
+          return;
+        }
+
+        // mode === "post": serverless submit via fetch.
+        e.preventDefault();
+        var btn = form.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        showStatus("Sending…");
+        try {
+          var res = await fetch(form.action, {
+            method: "POST",
+            headers: { "content-type": "application/json", accept: "application/json" },
+            body: JSON.stringify(d),
+          });
+          var j = await res.json().catch(function () { return {}; });
+          if (res.ok && j.ok) {
+            form.reset();
+            showStatus(j.message || "Thanks — you're on the list.", "ok");
+          } else {
+            showStatus(j.error || "Something went wrong. Please try again.", "err");
+            btn.disabled = false;
+          }
+        } catch (err) {
+          showStatus("Network error. Please try again.", "err");
+          btn.disabled = false;
+        }
+      });
+    });
+  })();
+</script>
+
+<style>
+  .signup-form {
+    margin-block: var(--space-12);
+    /* A bright, inviting capture block — the conversion focal point. */
+    background:
+      radial-gradient(900px 300px at 100% 0%, #e0f7fc 0%, rgba(224, 247, 252, 0) 60%),
+      var(--color-surface);
+    border-color: var(--color-accent);
+  }
+  .signup-heading { margin-top: 0; font-size: 1.375rem; }
+  .signup-intro { color: var(--color-muted); }
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+  .field { margin-bottom: var(--space-4); }
+  .field label { display: block; font-weight: 600; margin-bottom: var(--space-1); }
+  .opt { font-weight: 400; color: var(--color-muted); }
+  .field input,
+  .field select {
+    width: 100%;
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font: inherit;
+    color: var(--color-ink);
+    background: var(--color-bg);
+  }
+  .field input:focus,
+  .field select:focus { border-color: var(--color-primary); }
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .signup-status { margin-top: var(--space-4); font-weight: 600; }
+  .signup-status.ok { color: var(--color-accent-dark); }
+  .signup-status.err { color: var(--color-warn); }
+  .signup-privacy { font-size: 0.8125rem; color: var(--color-muted); margin-top: var(--space-4); }
+
+  @media (max-width: 519px) {
+    .row { grid-template-columns: 1fr; }
+  }
+</style>
