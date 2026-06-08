@@ -16,8 +16,7 @@ export const SITE = {
   // Where the contact / signup forms address their email (mailto: approach for now).
   contactEmail: "hello@surveyorcpdhub.com",
   // Google Analytics 4 measurement ID (empty string disables the tag).
-  // TODO: Dom add GA4 ID.
-  ga4Id: "",
+  ga4Id: "G-ERTX3XZN82",
   // Ahrefs Web Analytics site key (cookieless; empty string disables it).
   // TODO: Dom add Ahrefs key.
   ahrefsKey: "",
