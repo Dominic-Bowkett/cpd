@@ -1,6 +1,6 @@
 ---
 title: "How to become a quantity surveyor in the UK"
-description: "How to become a quantity surveyor (QS) — what the role involves, the routes in (degree, apprenticeship, conversion, RICS APC), the skills you need, and the earnings and demand outlook."
+description: "How to become a quantity surveyor (QS): the role, the routes in (degree, apprenticeship, conversion, RICS APC), the skills you need and the demand outlook."
 targetKeyword: "how to become a quantity surveyor"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07

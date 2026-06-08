@@ -1,6 +1,6 @@
 ---
-title: "Retrofit assessor training: how to become a retrofit assessor"
-description: "How to become a retrofit assessor in the UK — what the role involves, how it differs from a DEA and retrofit coordinator, the PAS 2035 route, skills, earnings and demand."
+title: "How to become a retrofit assessor"
+description: "How to become a retrofit assessor in the UK: the role, how it differs from a DEA and retrofit coordinator, the PAS 2035 route, skills, earnings and demand."
 targetKeyword: "retrofit assessor"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07

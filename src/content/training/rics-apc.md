@@ -1,6 +1,6 @@
 ---
-title: "RICS APC explained: the Assessment of Professional Competence"
-description: "A plain-English guide to the RICS APC — what the Assessment of Professional Competence is, how it works, the competencies, the final assessment, and how to prepare."
+title: "RICS APC explained — a practical guide"
+description: "A plain-English guide to the RICS APC: what the Assessment of Professional Competence is, how it works, the competencies, the assessment and how to prepare."
 targetKeyword: "rics apc"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07

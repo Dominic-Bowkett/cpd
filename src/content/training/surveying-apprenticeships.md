@@ -1,6 +1,6 @@
 ---
 title: "Surveying apprenticeships: earn while you qualify"
-description: "A guide to surveying apprenticeships in the UK — how they work, the levels available (including degree apprenticeships), entry requirements, and how they lead to chartered status."
+description: "A guide to surveying apprenticeships in the UK: how they work, the levels, entry requirements and how they lead to chartered status."
 targetKeyword: "surveying apprenticeship"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07

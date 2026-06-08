@@ -1,6 +1,6 @@
 ---
-title: "How to record CPD: a simple system that actually works"
-description: "How to record and log your CPD as a property professional — what to capture, how to reflect, a simple template approach, and how to keep it current without it becoming a chore."
+title: "How to record CPD: a simple system"
+description: "How to record and log your CPD as a property professional: what to capture, how to reflect, a simple template, and how to keep it current."
 targetKeyword: "how to record cpd"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07

@@ -1,6 +1,6 @@
 ---
-title: "Retrofit coordinator training: how to qualify under PAS 2035"
-description: "How to become a retrofit coordinator — what the role involves under PAS 2035, how it differs from a retrofit assessor, the qualification route, and the demand outlook."
+title: "How to become a retrofit coordinator"
+description: "How to become a retrofit coordinator: the role under PAS 2035, how it differs from a retrofit assessor, the qualification route and the demand outlook."
 targetKeyword: "retrofit coordinator"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07

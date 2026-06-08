@@ -1,6 +1,6 @@
 ---
 title: "How to become a party wall surveyor"
-description: "How to become a party wall surveyor in the UK — what the role involves under the Party Wall etc. Act 1996, the (lack of) formal entry requirements, training options and how to build credibility."
+description: "How to become a party wall surveyor: the role under the Party Wall etc. Act 1996, the (lack of) formal entry requirements, training and building credibility."
 targetKeyword: "how to become a party wall surveyor"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07

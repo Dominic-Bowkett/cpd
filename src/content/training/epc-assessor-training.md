@@ -1,6 +1,6 @@
 ---
-title: "EPC assessor course: how to become a domestic energy assessor"
-description: "How to become an EPC / domestic energy assessor (DEA) in the UK — what the role involves, the qualification route, accreditation, costs, earnings and demand, from a practising DEA."
+title: "EPC assessor course: become a DEA"
+description: "How to become an EPC / domestic energy assessor (DEA): the role, the qualification route, accreditation, costs, earnings and demand — from a practising DEA."
 targetKeyword: "epc assessor course"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07

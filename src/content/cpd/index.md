@@ -1,5 +1,5 @@
 ---
-title: "CPD for property professionals: what it is & how to log it"
+title: "CPD for property professionals explained"
 description: "What CPD means for surveyors, energy assessors and retrofit professionals — why it matters, the requirements by professional body, and how to record it."
 targetKeyword: "cpd for property professionals"
 lastReviewed: 2026-06-07

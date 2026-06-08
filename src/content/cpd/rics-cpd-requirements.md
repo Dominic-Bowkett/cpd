@@ -1,6 +1,6 @@
 ---
 title: "RICS CPD requirements explained"
-description: "A plain-English guide to RICS CPD requirements — what RICS members must do, the split between formal and informal CPD, how to record it, and where to find good CPD."
+description: "A plain-English guide to RICS CPD requirements: what members must do, the formal/informal split, how to record it, and where to find good CPD."
 targetKeyword: "rics cpd requirements"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07

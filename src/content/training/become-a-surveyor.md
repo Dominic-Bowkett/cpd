@@ -1,6 +1,6 @@
 ---
 title: "How to become a surveyor in the UK"
-description: "How to become a surveyor in the UK — the main types of surveyor, the routes in (degree, apprenticeship, conversion, RICS APC), how to specialise, and where to start."
+description: "How to become a surveyor in the UK: the types of surveyor, the routes in (degree, apprenticeship, conversion, RICS APC) and how to specialise."
 targetKeyword: "how to become a surveyor"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07

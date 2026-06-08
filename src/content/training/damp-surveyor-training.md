@@ -1,6 +1,6 @@
 ---
-title: "Damp surveyor training: how to become a damp & mould surveyor"
-description: "How to become a damp and mould surveyor — what the role involves, training and qualification options (including PCA and CSRT), the skills you need, and the demand under Awaab's Law."
+title: "Damp surveyor training: how to qualify"
+description: "How to become a damp and mould surveyor: what the role involves, training routes (PCA, CSRT), the skills you need and the demand under Awaab's Law."
 targetKeyword: "damp surveyor training"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07

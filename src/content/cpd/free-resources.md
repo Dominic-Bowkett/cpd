@@ -1,6 +1,6 @@
 ---
-title: "Free CPD for surveyors & property professionals (curated directory)"
-description: "A curated, practitioner-annotated directory of free and low-cost CPD for surveyors, energy assessors and retrofit professionals — by topic, with an honest take on each."
+title: "Free CPD for surveyors & professionals"
+description: "A curated, annotated directory of free and low-cost CPD for surveyors, energy assessors and retrofit professionals, organised by topic."
 targetKeyword: "free cpd for surveyors"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07

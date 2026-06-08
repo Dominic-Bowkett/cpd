@@ -1,6 +1,6 @@
 ---
 title: "HHSRS training: courses & qualifications explained"
-description: "HHSRS training explained — what the Housing Health and Safety Rating System is, who needs HHSRS training, the qualification options, and how it fits damp, mould and Awaab's Law."
+description: "HHSRS training explained: what the Housing Health and Safety Rating System is, who needs it, the course options, and how it fits damp and Awaab's Law."
 targetKeyword: "hhsrs training"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07

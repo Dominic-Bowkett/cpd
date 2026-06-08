@@ -1,6 +1,6 @@
 ---
 title: "How to become a building surveyor in the UK"
-description: "How to become a building surveyor — what the role involves, the qualification routes (degree, apprenticeship, conversion, RICS APC), skills, earnings outlook and how to specialise."
+description: "How to become a building surveyor: the role, the qualification routes (degree, apprenticeship, conversion, RICS APC), skills and how to specialise."
 targetKeyword: "how to become a building surveyor"
 lastReviewed: 2026-06-07
 datePublished: 2026-06-07
